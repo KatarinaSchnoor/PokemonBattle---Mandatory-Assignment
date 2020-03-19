@@ -11,6 +11,7 @@ namespace Pokemon
         static void Main(string[] args)
         {
             List<Pokemon> roster = new List<Pokemon>();
+            List<Move> moves = new List<Move>();
 
             // INITIALIZE YOUR THREE POKEMONS HERE
 
