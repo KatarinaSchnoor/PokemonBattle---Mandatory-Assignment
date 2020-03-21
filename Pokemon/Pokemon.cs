@@ -19,7 +19,7 @@ namespace Pokemon
     public class Pokemon
     {
         //fields
-        int level;
+        //int level;
         int baseAttack;
         int baseDefence;
         int hp;
@@ -35,6 +35,8 @@ namespace Pokemon
         //can also be used to get/set other private fields
         public int Hp { get => hp; }
 
+        public int Level { get; }
+
         /// <summary>
         /// Constructor for a Pokemon, the arguments are fairly self-explanatory
         /// </summary>
@@ -49,7 +51,7 @@ namespace Pokemon
             int baseDefence, int hp, Elements element,
             List<Move> moves)
         {
-            this.level = level;
+            this.Level = level;
             this.baseAttack = baseAttack;
             this.baseDefence = baseDefence;
             this.Name = name;
