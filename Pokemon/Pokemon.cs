@@ -24,7 +24,7 @@ namespace Pokemon
         int baseDefence;
         int hp;
         int maxHp;
-        Elements element;
+        //Elements element;
 
         //properties, imagine them as private fields with a possible get/set property (accessors)
         //in this case used to allow other objects to read (get) but not write (no set) these variables
