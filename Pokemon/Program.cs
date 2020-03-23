@@ -95,8 +95,15 @@ namespace Pokemon
                             }
                         }
                         
-                        //if everything is fine and we have 2 pokemons let's make them fight
-                        if (player != null && enemy != null && player != enemy)
+                        if(player.Hp <= 0)
+                        {
+                            Console.WriteLine(player.Name + " is fainted, and cannot fight. You have to heal them to be able to fight.");
+                        }
+                        else if (enemy.Hp <=0)
+                        {
+                            Console.WriteLine(enemy.Name + " is fainted, and cannot fight. You have to be heal them to be able to fight.");
+                        }//if everything is fine and we have 2 pokemons let's make them fight
+                        else if(player != null && enemy != null && player != enemy)
                         {
                             Console.WriteLine("A wild " + enemy.Name + " appears!");
                             Console.WriteLine(player.Name + " I choose you! ");
@@ -131,9 +138,8 @@ namespace Pokemon
                                         possibleMove = true;
                                         printOnce = true;
                                     }
-                                    else
+                                    else if (possibleMove == false)
                                     {
-                                        possibleMove = false;
                                         enemyAttack = false;
                                         printOnce = false;
                                     }
