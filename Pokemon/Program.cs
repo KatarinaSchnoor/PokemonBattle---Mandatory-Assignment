@@ -47,7 +47,7 @@ namespace Pokemon
                         // PRINT THE POKEMONS IN THE ROSTER HERE
                         for ( int i=0 ;i<roster.Count ;i++ )
                         {
-                            Console.WriteLine(roster[i].Name + ", level " + roster[i].Level + ", hp " + roster[i].Hp);
+                            Console.WriteLine(roster[i].Name + " - Level " + roster[i].Level + " / HP " + roster[i].Hp + " / Element: " + roster[i].Element);
                         }
                         
                         break;
@@ -55,7 +55,8 @@ namespace Pokemon
                     case "fight":
 
                         //PRINT INSTRUCTIONS AND POSSIBLE POKEMONS (SEE SLIDES FOR EXAMPLE OF EXECUTION)
-                        Console.WriteLine("Choose who should fight! \nWrite the names of the two Pokemons you want to fight, only seperated by 'space'.");
+                        //Should I delete some text?
+                        Console.WriteLine("Choose who should fight! (Charmander, Bulbasaur, or Squirtle) \nWrite the names of the two Pokemons you want to fight, only seperated by 'space'.");
                         Console.WriteLine("The first Pokemon you choose will be your Pokemon, the next will be the one you fight!");
 
                         //READ INPUT, REMEMBER IT SHOULD BE TWO POKEMON NAMES
@@ -70,7 +71,7 @@ namespace Pokemon
                         //Checking if they put in two names
                         if ( chosenPokemons.Length < 2 )
                         {
-                            Console.WriteLine("You have to choose two Pokemons to fight, seperated with 'space' (Charmander, Squirtle, or Bulbasaur");
+                            Console.WriteLine("You have to choose two Pokemons to fight, seperated with 'space' (Charmander, Squirtle, or Bulbasaur)");
                         }
                         else
                         {
@@ -80,14 +81,8 @@ namespace Pokemon
                                 if ( chosenPokemons[0] == roster[i].Name.ToString() )
                                 {
                                     player = roster[i];
-                                    //Console.WriteLine("Your Pokemon is: " + player.Name);
                                     
                                 }
-                                /*else
-                                {
-                                    Console.WriteLine("Invalid Pokemon. Try again.");
-                                    continue;
-                                }*/
                                 
                             }
                             for ( int i = 0 ; i < roster.Count ; i++ )
@@ -96,14 +91,7 @@ namespace Pokemon
                                 if ( chosenPokemons[1] == roster[i].Name.ToString() )
                                 {
                                     enemy = roster[i];
-                                    //Console.WriteLine("Your enemy Pokemon is: " + enemy.Name);
                                 }
-                                /*else
-                                {
-                                    Console.WriteLine("You have to choose two Pokemons to fight");
-                                    
-                                }*/
-                                
                             }
                         }
                         
@@ -118,48 +106,60 @@ namespace Pokemon
                             while (player.Hp > 0 && enemy.Hp > 0)
                             {
                                 //PRINT POSSIBLE MOVES
-                                Console.WriteLine("What move should we use?");
+                                Console.Write("What move should we use?  ");
                                 
                                 foreach ( Move moves in player.Moves )
                                 {
-                                    Console.WriteLine("{0}", moves.Name);
+                                    Console.Write("/ {0} ", moves.Name);
                                     
                                 }
+
+                                Console.WriteLine(" ");
 
                                 //GET USER ANSWER, BE SURE TO CHECK IF IT'S A VALID MOVE, OTHERWISE ASK AGAIN
                                 string chosenMove = Console.ReadLine();
                                 string move = null;
                                 bool possibleMove = false;
+                                bool enemyAttack = false;
+                                bool printOnce = false;
                                 
                                 foreach ( Move moves in player.Moves)
                                 {
                                     if ( chosenMove == moves.Name )
                                     {
-                                        //Console.WriteLine("You choose: " + moves.Name);
                                         move = chosenMove;
                                         possibleMove = true;
+                                        printOnce = true;
                                     }
-                                    else if(possibleMove == false)
+                                    else
                                     {
-                                        //Need to make it only print when something invalid is put in
-                                        Console.WriteLine("Please choose one of your Pokemons moves");
+                                        possibleMove = false;
+                                        enemyAttack = false;
+                                        printOnce = false;
                                     }
                                                                         
                                 }
+
+                                if(possibleMove == false && printOnce == false )
+                                {
+                                    Console.WriteLine("Please choose one of " + player.Name + " moves");
+                                }
+
                                 if(possibleMove == true )
                                 {
                                     //int move = -1;
 
                                     //CALCULATE AND APPLY DAMAGE
-                                    int damage = -1;
+                                    int damage = player.Attack(enemy);
 
                                     //print the move and damage
                                     Console.WriteLine(player.Name + " uses " + move + ". " + enemy.Name + " loses " + damage + " HP");
                                     possibleMove = false;
+                                    enemyAttack = true;
                                 }
 
                                 //if the enemy is not dead yet, it attacks
-                                /*if (enemy.Hp > 0)
+                                if ( enemy.Hp > 0 && enemyAttack == true)
                                 {
                                     //CHOOSE A RANDOM MOVE BETWEEN THE ENEMY MOVES AND USE IT TO ATTACK THE PLAYER
                                     Random rand = new Random();
@@ -168,12 +168,15 @@ namespace Pokemon
                                      * rand.Next(X) 
                                      * where X is a number 
                                      */
-                                /*int enemyMove = -1;
-                                int enemyDamage = -1;
+                                    int enemyMove = rand.Next(enemy.Moves.Count);
+                                
+                                    int enemyDamage = enemy.Attack(player);
 
-                                //print the move and damage
-                                Console.WriteLine(enemy.Name + " uses " + enemy.Moves[enemyMove].Name + ". " + player.Name + " loses " + enemyDamage + " HP");
-                                }*/
+                                    //print the move and damage
+                                    Console.WriteLine(enemy.Name + " uses " + enemy.Moves[enemyMove].Name + ". " + player.Name + " loses " + enemyDamage + " HP");
+
+                                    enemyAttack = false;
+                                }
                             }
                             //The loop is over, so either we won or lost
                             if (enemy.Hp <= 0)
@@ -197,12 +200,11 @@ namespace Pokemon
                         for ( int i = 0 ; i < roster.Count ; i++ )
                         {
                             roster[i].Restore();
-                            Console.WriteLine(roster[i].Name + ", hp " + roster[i].Hp);
+                            Console.WriteLine(roster[i].Name + " - HP " + roster[i].Hp);
 
                         }
 
-                        //If possible to do while fight - set it in an if-statement with a bool called fight (if not in fight - heal)
-
+                        
                         Console.WriteLine("All pokemons have been healed");
                         break;
 

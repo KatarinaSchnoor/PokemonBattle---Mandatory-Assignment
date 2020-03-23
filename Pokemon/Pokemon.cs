@@ -37,6 +37,8 @@ namespace Pokemon
 
         public int Level { get; }
 
+        public Elements Element { get; }
+
         /// <summary>
         /// Constructor for a Pokemon, the arguments are fairly self-explanatory
         /// </summary>
@@ -57,7 +59,7 @@ namespace Pokemon
             this.Name = name;
             this.hp = hp;
             this.maxHp = hp;
-            this.element = element;
+            this.Element = element;
             this.Moves = moves;
         }
 
@@ -69,7 +71,15 @@ namespace Pokemon
         /// <returns>The amount of damage that was applied so we can print it for the user</returns>
         public int Attack(Pokemon enemy)
         {
-            throw new NotImplementedException();
+            int totalDamage = (this.baseAttack * this.Level) * this.CalculateElementalEffects(/*baseAttack,*/ enemy.Element) - enemy.CalculateDefence();
+
+            if ( totalDamage < 0 )
+            {
+                totalDamage = 0;
+            }
+
+            enemy.ApplyDamage(totalDamage);
+            return totalDamage;
         }
 
         /// <summary>
@@ -78,7 +88,8 @@ namespace Pokemon
         /// <returns> returns the amount of defence points considering the level as well</returns>
         public int CalculateDefence()
         {
-            throw new NotImplementedException();
+            int defence = this.baseDefence * this.Level;
+            return defence;
         }
 
         /// <summary>
@@ -87,9 +98,26 @@ namespace Pokemon
         /// <param name="damage">The amount of pre elemental-effect damage</param>
         /// <param name="enemyType">The elemental type of the enemy</param>
         /// <returns>The damage post elemental-effect</returns>
-        public int CalculateElementalEffects(int damage, Elements enemyType)
+        public int CalculateElementalEffects(/*int damage,*/ Elements enemyType)
         {
-            throw new NotImplementedException();
+            
+            if ( Element == Elements.Fire && enemyType == Elements.Water || Element == Elements.Water && enemyType == Elements.Grass ||
+                Element == Elements.Grass && enemyType == Elements.Fire )
+            {
+                int elementalEffectNegative = 1 / 2;
+                return elementalEffectNegative;
+            }
+            else if ( Element == Elements.Fire && enemyType == Elements.Grass || Element == Elements.Water && enemyType == Elements.Fire || 
+                Element == Elements.Grass && enemyType == Elements.Water)
+            {
+                int elementalEffectPositive = 2;
+                return elementalEffectPositive;
+            }
+            else
+            {
+                return 0;
+            }
+            
         }
 
         /// <summary>
@@ -98,7 +126,11 @@ namespace Pokemon
         /// <param name="damage"></param>
         public void ApplyDamage(int damage)
         {
-            throw new NotImplementedException();
+            this.hp = this.hp - damage;
+            if ( this.hp < 0 )
+            {
+                hp = 0;
+            }
         }
 
         /// <summary>
@@ -106,7 +138,7 @@ namespace Pokemon
         /// </summary>
         public void Restore()
         {
-            hp = maxHp;
+            this.hp = this.maxHp;
         }
     }
 }
