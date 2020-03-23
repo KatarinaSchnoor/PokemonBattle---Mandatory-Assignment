@@ -94,105 +94,112 @@ namespace Pokemon
                                 }
                             }
                         }
-                        
-                        if(player.Hp <= 0)
-                        {
-                            Console.WriteLine(player.Name + " is fainted, and cannot fight. You have to heal them to be able to fight.");
-                        }
-                        else if (enemy.Hp <=0)
-                        {
-                            Console.WriteLine(enemy.Name + " is fainted, and cannot fight. You have to be heal them to be able to fight.");
-                        }//if everything is fine and we have 2 pokemons let's make them fight
-                        else if(player != null && enemy != null && player != enemy)
-                        {
-                            Console.WriteLine("A wild " + enemy.Name + " appears!");
-                            Console.WriteLine(player.Name + " I choose you! ");
 
-
-                            //BEGIN FIGHT LOOP
-                            while (player.Hp > 0 && enemy.Hp > 0)
+                        //if everything is fine and we have 2 pokemons let's make them fight
+                        if ( player != null && enemy != null && player != enemy )
+                        {
+                            if ( player.Hp <= 0 )
                             {
-                                //PRINT POSSIBLE MOVES
-                                Console.Write("What move should we use?  ");
-                                
-                                foreach ( Move moves in player.Moves )
-                                {
-                                    Console.Write("/ {0} ", moves.Name);
-                                    
-                                }
-
-                                Console.WriteLine(" ");
-
-                                //GET USER ANSWER, BE SURE TO CHECK IF IT'S A VALID MOVE, OTHERWISE ASK AGAIN
-                                string chosenMove = Console.ReadLine();
-                                string move = null;
-                                bool possibleMove = false;
-                                bool enemyAttack = false;
-                                bool printOnce = false;
-                                
-                                foreach ( Move moves in player.Moves)
-                                {
-                                    if ( chosenMove == moves.Name )
-                                    {
-                                        move = chosenMove;
-                                        possibleMove = true;
-                                        printOnce = true;
-                                    }
-                                    else if (possibleMove == false)
-                                    {
-                                        enemyAttack = false;
-                                        printOnce = false;
-                                    }
-                                                                        
-                                }
-
-                                if(possibleMove == false && printOnce == false )
-                                {
-                                    Console.WriteLine("Please choose one of " + player.Name + " moves");
-                                }
-
-                                if(possibleMove == true )
-                                {
-                                    //int move = -1;
-
-                                    //CALCULATE AND APPLY DAMAGE
-                                    int damage = player.Attack(enemy);
-
-                                    //print the move and damage
-                                    Console.WriteLine(player.Name + " uses " + move + ". " + enemy.Name + " loses " + damage + " HP");
-                                    possibleMove = false;
-                                    enemyAttack = true;
-                                }
-
-                                //if the enemy is not dead yet, it attacks
-                                if ( enemy.Hp > 0 && enemyAttack == true)
-                                {
-                                    //CHOOSE A RANDOM MOVE BETWEEN THE ENEMY MOVES AND USE IT TO ATTACK THE PLAYER
-                                    Random rand = new Random();
-                                    /*the C# random is a bit different than the Unity random
-                                     * you can ask for a number between [0,X) (X not included) by writing
-                                     * rand.Next(X) 
-                                     * where X is a number 
-                                     */
-                                    int enemyMove = rand.Next(enemy.Moves.Count);
-                                
-                                    int enemyDamage = enemy.Attack(player);
-
-                                    //print the move and damage
-                                    Console.WriteLine(enemy.Name + " uses " + enemy.Moves[enemyMove].Name + ". " + player.Name + " loses " + enemyDamage + " HP");
-
-                                    enemyAttack = false;
-                                }
+                                Console.WriteLine(player.Name + " is fainted, and cannot fight. You have to heal them to be able to fight.");
                             }
-                            //The loop is over, so either we won or lost
-                            if (enemy.Hp <= 0)
+                            else if ( enemy.Hp <= 0 )
                             {
-                                Console.WriteLine(enemy.Name + " faints, you won!");
+                                Console.WriteLine(enemy.Name + " is fainted, and cannot fight. You have to be heal them to be able to fight.");
                             }
                             else
                             {
-                                Console.WriteLine(player.Name + " faints, you lost...");
+                                Console.WriteLine("A wild " + enemy.Name + " appears!");
+                                Console.WriteLine(player.Name + " I choose you! ");
+
+
+                                //BEGIN FIGHT LOOP
+                                while ( player.Hp > 0 && enemy.Hp > 0 )
+                                {
+                                    //PRINT POSSIBLE MOVES
+                                    Console.Write("What move should we use?  ");
+
+                                    foreach ( Move moves in player.Moves )
+                                    {
+                                        Console.Write("/ {0} " , moves.Name);
+
+                                    }
+
+                                    Console.WriteLine(" ");
+
+                                    //GET USER ANSWER, BE SURE TO CHECK IF IT'S A VALID MOVE, OTHERWISE ASK AGAIN
+                                    string chosenMove = Console.ReadLine();
+                                    string move = null;
+                                    bool possibleMove = false;
+                                    bool enemyAttack = false;
+                                    bool printOnce = false;
+
+                                    foreach ( Move moves in player.Moves )
+                                    {
+                                        if ( chosenMove == moves.Name )
+                                        {
+                                            move = chosenMove;
+                                            possibleMove = true;
+                                            printOnce = true;
+                                        }
+                                        else if ( possibleMove == false )
+                                        {
+                                            enemyAttack = false;
+                                            printOnce = false;
+                                        }
+
+                                    }
+
+                                    if ( possibleMove == false && printOnce == false )
+                                    {
+                                        Console.WriteLine("Please choose one of " + player.Name + " moves");
+                                    }
+
+                                    if ( possibleMove == true )
+                                    {
+                                        //int move = -1;
+
+                                        //CALCULATE AND APPLY DAMAGE
+                                        int damage = player.Attack(enemy);
+
+                                        //print the move and damage
+                                        Console.WriteLine(player.Name + " uses " + move + ". " + enemy.Name + " loses " + damage + " HP");
+                                        possibleMove = false;
+                                        enemyAttack = true;
+                                    }
+
+                                    //if the enemy is not dead yet, it attacks
+                                    if ( enemy.Hp > 0 && enemyAttack == true )
+                                    {
+                                        //CHOOSE A RANDOM MOVE BETWEEN THE ENEMY MOVES AND USE IT TO ATTACK THE PLAYER
+                                        Random rand = new Random();
+                                        /*the C# random is a bit different than the Unity random
+                                         * you can ask for a number between [0,X) (X not included) by writing
+                                         * rand.Next(X) 
+                                         * where X is a number 
+                                         */
+                                        int enemyMove = rand.Next(enemy.Moves.Count);
+
+                                        int enemyDamage = enemy.Attack(player);
+
+                                        //print the move and damage
+                                        Console.WriteLine(enemy.Name + " uses " + enemy.Moves[enemyMove].Name + ". " + player.Name + " loses " + enemyDamage + " HP");
+
+                                        enemyAttack = false;
+                                    }
+                                }
+                                //The loop is over, so either we won or lost
+                                if ( enemy.Hp <= 0 )
+                                {
+                                    Console.WriteLine(enemy.Name + " faints, you won!");
+                                }
+                                else
+                                {
+                                    Console.WriteLine(player.Name + " faints, you lost...");
+                                }
+
                             }
+
+
                         }
                         //otherwise let's print an error message
                         else
