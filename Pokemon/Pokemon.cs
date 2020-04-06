@@ -49,7 +49,7 @@ namespace Pokemon
         /// <param name="hp"></param>
         /// <param name="element"></param>
         /// <param name="moves">This needs to be a List of Move objects</param>
-        public Pokemon(string name, int level, int baseAttack,
+        /*public Pokemon(int level, int baseAttack,
             int baseDefence, int hp, Elements element,
             List<Move> moves)
         {
@@ -61,6 +61,11 @@ namespace Pokemon
             this.maxHp = hp;
             this.Element = element;
             this.Moves = moves;
+        }*/
+
+        public Pokemon()
+        {
+
         }
 
         /// <summary>

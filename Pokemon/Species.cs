@@ -8,10 +8,7 @@ namespace Pokemon
 {
     class Charmander : Pokemon
     {
-        //we take some inputs
-
         
-
         public Charmander(int level)
         {
             //set some values inside Charmander/Pokemon?
