@@ -16,28 +16,28 @@ namespace Pokemon
         Grass
     }
 
-    public class Pokemon
+    public abstract class Pokemon
     {
         //fields
         //int level;
-        int baseAttack;
-        int baseDefence;
-        int hp;
-        int maxHp;
+        protected int baseAttack;
+        protected int baseDefence;
+        protected int hp;
+        protected int maxHp;
         //Elements element;
 
         //properties, imagine them as private fields with a possible get/set property (accessors)
         //in this case used to allow other objects to read (get) but not write (no set) these variables
-        public string Name { get; }
+        public string Name; /* { get; }*/
         //example of how to make the string Name readable AND writable  
         //  public string Name { get; set; }
-        public List<Move> Moves { get; }
+        public List<Move> Moves; /* { get; }*/
         //can also be used to get/set other private fields
-        public int Hp { get => hp; }
+        public int Hp; /* { get => hp; }*/
 
-        public int Level { get; }
+        public int Level; /* { get; }*/
 
-        public Elements Element { get; }
+        public Elements Element; /* { get; }*/
 
         /// <summary>
         /// Constructor for a Pokemon, the arguments are fairly self-explanatory

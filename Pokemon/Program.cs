@@ -12,29 +12,15 @@ namespace Pokemon
         {
             List<Pokemon> roster = new List<Pokemon>();
 
-            //Making list for Charmander moves
-            List<Move> CharmanderMoves = new List<Move>();
-
-            CharmanderMoves.Add(new Move("Ember"));
-            CharmanderMoves.Add(new Move("Fire Blast"));
-
-            //Making list for Squirtle moves
-            List<Move> SquirtleMoves = new List<Move>();
-
-            SquirtleMoves.Add(new Move("Bubble"));
-            SquirtleMoves.Add(new Move("Bite"));
-
-            //Making list for Bulbasaur moves
-            List<Move> BulbasaurMoves = new List<Move>();
-
-            BulbasaurMoves.Add(new Move("Cut"));
-            BulbasaurMoves.Add(new Move("Mega Drain"));
-            BulbasaurMoves.Add(new Move("Razor Leaf"));
+            //creating the pokemons and adding them to the list
+            roster.Add(PokemonFactory.Create("Charmander", 3));
+            roster.Add(PokemonFactory.Create("Bulbasaur" , 3));
+            roster.Add(PokemonFactory.Create("Squirtle" , 2));
 
             // INITIALIZE YOUR THREE POKEMONS HERE
-            roster.Add(new Pokemon("Charmander" , 3 , 52 , 43 , 39 , Elements.Fire , CharmanderMoves));
-            roster.Add(new Pokemon("Squirtle" , 2 , 48 , 65 , 44 , Elements.Water , SquirtleMoves));
-            roster.Add(new Pokemon("Bulbasaur" , 3 , 49 , 49 , 45 , Elements.Grass , BulbasaurMoves));
+            //roster.Add(new Pokemon("Charmander" , 3 , 52 , 43 , 39 , Elements.Fire , CharmanderMoves));
+            //roster.Add(new Pokemon("Squirtle" , 2 , 48 , 65 , 44 , Elements.Water , SquirtleMoves));
+            //roster.Add(new Pokemon("Bulbasaur" , 3 , 49 , 49 , 45 , Elements.Grass , BulbasaurMoves));
 
             Console.WriteLine("Welcome to the world of Pokemon!\nThe available commands are list/fight/heal/quit");
 
